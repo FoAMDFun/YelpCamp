@@ -5,6 +5,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const Campground = require("./models/campground");
+const methodOverride = require("method-override");
 
 mongoose.connect(dataBaseURL, {
     useNewUrlParser: true,
@@ -23,6 +24,7 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 // routing
 app.get("/", (req, res) => {
@@ -55,6 +57,19 @@ app.get("/campgrounds/:id/edit", async (req, res) => {
     res.render("campgrounds/edit", { campground });
 });
 
+app.put("/campgrounds/:id", async (req, res) => {
+    const { id } = req.params;
+    const campground = await Campground.findByIdAndUpdate(id, {
+        ...req.body.campground,
+    });
+    res.redirect(`/campgrounds/${campground._id}`);
+});
+
+app.delete("/campgrounds/:id", async (req, res) => {
+    const { id } = req.params;
+    await Campground.findByIdAndDelete(id);
+    res.redirect("/campgrounds");
+});
 app.listen(port, () => {
     console.log(`Serving on port ${port}`);
 });
