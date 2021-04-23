@@ -4,7 +4,7 @@
     <div class="card mb-3">
         <div class="row">
             <div class="col-md-4">
-                <img class="img-fluid" src="<%= campground.image %>" alt="" />
+                <img class="img-fluid" src="<%=campground.image%>" alt="" />
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -12,13 +12,13 @@
                     <p class="card-text"><%= campground.description %></p>
                     <p class="card-text">
                         <small class="text-muted">
-                            <%= campground.location %>
+                            <%=campground.location%>
                         </small>
                     </p>
                     <a
                         class="btn btn-primary"
-                        href="/campgrounds/<%= campground._id  %>"
-                        >View <%= campground.title %>
+                        href="/campgrounds/<%=campground._id%>"
+                        >View <%=campground.title%>
                     </a>
                 </div>
             </div>
