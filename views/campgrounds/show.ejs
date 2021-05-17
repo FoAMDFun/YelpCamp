@@ -11,8 +11,14 @@
                 <li class="list-group-item text-muted">
                     <%= campground.location %>
                 </li>
+                <li class="list-group-item text-muted">
+                    Submitted by <%if (currentUser &&
+                    campground.author.equals(currentUser._id)) {%> You <%}else
+                    {%> <%=campground.author.username%> <%}%>
+                </li>
                 <li class="list-group-item">$<%=campground.price%>/night</li>
             </ul>
+            <%if (currentUser && campground.author.equals(currentUser._id)) {%>
             <div class="card-body">
                 <a
                     class="card-link btn btn-warning"
@@ -27,9 +33,12 @@
                     <button class="btn btn-info">Delete</button>
                 </form>
             </div>
+            <%}%>
+            <div class="card-footer text-muted">2 days ago</div>
         </div>
     </div>
     <div class="col-6">
+        <%if (currentUser) {%>
         <h2>Leave a Review</h2>
         <form
             action="/campgrounds/<%=campground._id%>/reviews"
@@ -62,11 +71,17 @@
             </div>
             <button class="mb-3 btn btn-success">Submit</button>
         </form>
-        <% for(let review of campground.reviews) { %>
+        <%}%> <% for (let review of campground.reviews) { %>
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="card-title">Rating: <%=review.rating%></h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    By <%if (currentUser &&
+                    review.author.equals(currentUser._id)) {%> You <%}else {%>
+                    <%=review.author.username %> <%}%>
+                </h6>
                 <p class="card-text">Review: <%=review.body%></p>
+                <%if (currentUser && review.author.equals(currentUser._id)) {%>
                 <form
                     class="d-inline"
                     action="/campgrounds/<%=campground._id%>/reviews/<%=review.id%>?_method=DELETE"
@@ -74,6 +89,7 @@
                 >
                     <button class="btn btn-sm btn-danger">Delete</button>
                 </form>
+                <%}%>
             </div>
         </div>
         <% } %>

@@ -9,9 +9,13 @@ const ejsMate = require("ejs-mate");
 const flash = require("connect-flash");
 const catchAsync = require("./utils/catchAsync");
 const methodOverride = require("method-override");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user");
 
-const campgrounds = require("./routes/campground");
-const reviews = require("./routes/reviews");
+const userRoutes = require("./routes/users");
+const campgroundRoutes = require("./routes/campgrounds");
+const reviewRoutes = require("./routes/reviews");
 
 mongoose.connect(dataBaseURL, {
     useNewUrlParser: true,
@@ -41,22 +45,40 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        expires: Date.now() + 100 * 60 * 60 * 24 * 7,
-        maxAge: 100 * 60 * 60 * 24 * 7,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
     },
 };
 
 app.use(session(sessionConfig));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     next();
 });
 
-app.use("/campgrounds", campgrounds);
-app.use("/campgrounds/:id/reviews", reviews);
+app.get("/fakeUser", async (req, res) => {
+    const user = new User({
+        email: "foamdfun@gmail.com",
+        username: "FoAMDFun",
+    });
+    const newUser = await User.register(user, "chicken");
+    res.send(newUser);
+});
+
+app.use("/", userRoutes);
+app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds/:id/reviews", reviewRoutes);
 
 // routing
 app.get("/", (req, res) => {

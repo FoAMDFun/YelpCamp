@@ -24,10 +24,24 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
     await Campground.deleteMany({});
+
+    const eger = new Campground({
+        author: "60a223f4c66d4c326c7e964c",
+        location: "Eger, Heves",
+        title: `${sample(descriptors)} ${sample(places)}`,
+        image: "https://source.unsplash.com/collection/483251",
+        description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta rem ea, sequi eligendi.",
+        price: 20,
+    });
+
+    await eger.save();
+
     for (let i = 0; i < 50; i++) {
         const random230 = Math.floor(Math.random() * 230);
         const price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campground({
+            author: "60a223f4c66d4c326c7e964c",
             location: `${cities[random230].city}, ${cities[random230].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             image: "https://source.unsplash.com/collection/483251",
