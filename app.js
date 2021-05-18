@@ -1,5 +1,8 @@
 const port = 3000;
 const dataBaseURL = "mongodb://localhost:27017/yelp-camp";
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
 
 const express = require("express");
 const session = require("express-session");
