@@ -9,9 +9,11 @@
     "author": "FoAMDFun",
     "license": "ISC",
     "dependencies": {
+        "@mapbox/mapbox-sdk": "^0.12.1",
         "bcrypt": "^5.0.1",
         "cloudinary": "^1.25.1",
         "connect-flash": "^0.1.1",
+        "darkmode-js": "^1.5.7",
         "dotenv": "^9.0.2",
         "ejs": "^3.1.6",
         "ejs-mate": "^3.0.0",

@@ -1,78 +1,55 @@
 <% layout('layouts/boilerplate') %>
-<div class="row">
+<script>
+    document.title = "YelpCamp - New Campground";
+</script>
+<div class="container mt-5">
     <h1 class="text-center">New Campground</h1>
     <div class="col-6 offset-3">
-        <form
-            class="validated-form"
-            action="/campgrounds"
-            method="POST"
-            novalidate
-            enctype="multipart/form-data"
-        >
-            <div class="valid-feedback">&#128077;</div>
-            <div class="mb-3">
-                <label class="form-label" for="title">Title</label>
-                <input
-                    class="form-control"
-                    type="text"
-                    id="title"
-                    name="campground[title]"
-                    required
-                />
-                <div class="valid-feedback">&#128077;</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="location">Location</label>
-                <input
-                    class="form-control"
-                    type="text"
-                    id="location"
-                    name="campground[location]"
-                    required
-                />
-                <div class="valid-feedback">&#128077;</div>
-            </div>
-            <div class="mb-3">
-                <label for="price" class="form-label">Campground Price</label>
-                <div class="input-group">
-                    <span class="input-group-text" id="price-label">$</span>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="price-label"
-                        name="campground[price]"
-                        placeholder="0.00"
-                        aria-label="price"
-                        aria-describedby="price-label"
-                        required
-                    />
+        <div class="card shadow">
+            <div class="card-body">
+                <form class="validated-form" action="/campgrounds" method="POST" novalidate enctype="multipart/form-data">
                     <div class="valid-feedback">&#128077;</div>
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="title">Title</label>
+                        <input class="form-control" type="text" id="title" name="campground[title]" required />
+                        <div class="valid-feedback">&#128077;</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="location">Location</label>
+                        <input class="form-control" type="text" id="location" name="campground[location]" required />
+                        <div class="valid-feedback">&#128077;</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Campground Price</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="price-label">$</span>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="price-label"
+                                name="campground[price]"
+                                placeholder="0.00"
+                                aria-label="price"
+                                aria-describedby="price-label"
+                                required
+                            />
+                            <div class="valid-feedback">&#128077;</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Description</label>
+                        <textarea class="form-control" type="text" id="description" name="campground[description]" required></textarea>
+                        <div class="valid-feedback">&#128077;</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Add Images</label>
+                        <input class="form-control" type="file" id="image" name="image" multiple />
+                    </div>
+                    <div class="mb3 d-grid">
+                        <button class="btn btn-success">Add Campground</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label class="form-label" for="description">Description</label>
-                <textarea
-                    class="form-control"
-                    type="text"
-                    id="description"
-                    name="campground[description]"
-                    required
-                ></textarea>
-                <div class="valid-feedback">&#128077;</div>
-            </div>
-            <div class="mb-3">
-                <label for="image" class="form-label">Add Images</label>
-                <input
-                    class="form-control"
-                    type="file"
-                    id="image"
-                    name="image"
-                    multiple
-                />
-            </div>
-            <div class="mb3">
-                <button class="btn btn-success">Add Campground</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>

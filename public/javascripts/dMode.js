@@ -13,8 +13,8 @@ function addDarkModeWidget() {
         autoMatchOsTheme: true, // default: true
     };
 
-    const darkMode = new Darkmode(options);
-    darkMode.showWidget();
+    const darkmode = new Darkmode(options);
+    darkmode.showWidget();
 }
 
 window.addEventListener("load", addDarkModeWidget);
