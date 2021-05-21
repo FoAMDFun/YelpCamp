@@ -104,7 +104,7 @@ app.use(
             workerSrc: ["'self'", "blob:"],
             childSrc: ["blob:"],
             objectSrc: [],
-            imgSrc: ["'self'", "blob:", "data:", "https://res.cloudinary.com/foamdfun/*", "https://images.unsplash.com"],
+            imgSrc: ["'self'", "blob:", "data:", "https://res.cloudinary.com", "https://images.unsplash.com"],
             fontSrc: ["'self'", ...fontSrcUrls],
         },
     })
