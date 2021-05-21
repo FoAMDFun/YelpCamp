@@ -1,8 +1,8 @@
-const mapStyle = "mapbox://styles/mapbox/light-v10";
+let mapStyle = "mapbox://styles/mapbox/light-v10";
 mapboxgl.accessToken = mapToken;
 
-const map = new mapboxgl.Map({
-    container: "map",
+let map = new mapboxgl.Map({
+    container: "show-map",
     style: mapStyle,
     center: campground.geometry.coordinates,
     zoom: 8,

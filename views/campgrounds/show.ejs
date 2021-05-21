@@ -1,11 +1,9 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/stylesheets/stars.css" />
 <script>
-    const mapToken = "<%-process.env.MAPBOX_TOKEN%>";
-    const campground = <%-JSON.stringify(campground)%>;
     <% if (campground) {%>
         document.title = "YelpCamp - <%=campground.title%>";
-    <%}%>
+        <%}%>
 </script>
 <div class="container mt-5">
     <div class="row">
@@ -61,7 +59,7 @@
             </div>
         </div>
         <div class="col-6">
-            <div id="map" style=></div>
+            <div id="show-map" class="mb-5"></div>
             <%if (currentUser) {%>
             <h2>Leave a Review</h2>
             <form action="/campgrounds/<%=campground._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
@@ -86,7 +84,7 @@
                 </div>
                 <button class="mb-3 btn btn-success">Submit</button>
             </form>
-            <%}%> <% for (let review of campground.reviews) { %>
+            <%}%> <%for (let review of campground.reviews) {%>
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">
@@ -101,9 +99,14 @@
                     <%}%>
                 </div>
             </div>
-            <% } %>
+            <%}%>
         </div>
     </div>
 </div>
+<script>
+    const mapToken = "<%-process.env.MAPBOX_TOKEN%>";
+    const campground = <%- JSON.stringify(campground) %>;
+</script>
+
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
 <script src="/javascripts/showPageMap.js"></script>
