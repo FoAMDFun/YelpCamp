@@ -1,10 +1,10 @@
-const port = 3000;
 require("dotenv").config();
 const dataBaseURL = process.env.DB_URL || "mongodb://localhost:27017/yelp-camp";
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
-
+const port = process.env.PORT || 80;
+const secret = process.env.SECRET || "thisshouldbeabettersecret";
 const express = require("express");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
@@ -50,7 +50,7 @@ app.use(mongoSanitize());
 
 const mongoStore = new MongoStore({
     url: dataBaseURL,
-    secret: "thisshouldbeabettersecret!",
+    secret,
     touchAfter: 24 * 60 * 60, // 24 hours
 });
 
@@ -59,7 +59,7 @@ mongoStore.on("error", (error) => {
 });
 
 const sessionConfig = {
-    secret: "thisshouldbeabettersecret!",
+    secret,
     name: "YelpCamp",
     resave: false,
     saveUninitialized: true,
