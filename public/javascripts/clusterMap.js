@@ -1,10 +1,18 @@
 mapboxgl.accessToken = mapToken;
-var map = new mapboxgl.Map({
+const map = new mapboxgl.Map({
     container: "cluster-map",
     style: "mapbox://styles/mapbox/dark-v10",
     center: [19.19179687498357, 47.18995747013945],
     zoom: 6.1,
 });
+
+const controlOptions = {
+    showCompass: true,
+    showZoom: true,
+    visualizePitch: true,
+};
+
+map.addControl(new mapboxgl.NavigationControl(controlOptions), "top-right");
 
 map.on("load", function () {
     map.addSource("campgrounds", {
@@ -53,10 +61,10 @@ map.on("load", function () {
     });
 
     map.on("click", "clusters", function (e) {
-        var features = map.queryRenderedFeatures(e.point, {
+        const features = map.queryRenderedFeatures(e.point, {
             layers: ["clusters"],
         });
-        var clusterId = features[0].properties.cluster_id;
+        const clusterId = features[0].properties.cluster_id;
         map.getSource("campgrounds").getClusterExpansionZoom(clusterId, function (err, zoom) {
             if (err) return;
 
@@ -69,7 +77,7 @@ map.on("load", function () {
 
     map.on("click", "unclustered-point", function (e) {
         const text = e.features[0].properties.popUpMarkup;
-        var coordinates = e.features[0].geometry.coordinates.slice();
+        const coordinates = e.features[0].geometry.coordinates.slice();
 
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;

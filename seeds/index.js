@@ -30,7 +30,7 @@ const seedDB = async () => {
         coordinates: [20.3747, 47.8989],
     };
     const eger = new Campground({
-        author: "60a386116780e4299c5ea1b1",
+        author: "60a7b12eefe3f25ce075cef3",
         location: "Eger, Heves",
         title: `${sample(descriptors)} ${sample(places)}`,
         geometry: geoData,

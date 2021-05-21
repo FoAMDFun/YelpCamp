@@ -20,7 +20,6 @@ module.exports.createCampground = async (req, res) => {
             limit: 1,
         })
         .send();
-    console.log(geoData.body.features[0].geometry);
     const campground = new Campground(req.body.campground);
     campground.geometry = geoData.body.features[0].geometry;
     campground.images = req.files.map((images) => ({
