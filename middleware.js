@@ -2,6 +2,18 @@ const Campground = require("./models/campground");
 const ExpressError = require("./utils/ExpressError");
 const { campgroundSchema, reviewSchema } = require("./schemas");
 const Review = require("./models/review");
+const langData = require("./public/data/language.json");
+
+module.exports.getLanguage = (req, res, next) => {
+    if (req.session.language) {
+        return next();
+    }
+    if (!req.session.language) {
+        req.session.language = "en";
+    }
+    req.session.langData = langData.languages[req.session.language];
+    next();
+};
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {

@@ -3,24 +3,24 @@
     document.title = "YelpCamp - New Campground";
 </script>
 <div class="container mt-5">
-    <h1 class="text-center">New Campground</h1>
+    <h1 class="text-center"><%=langData.newCamp%></h1>
     <div class="col-6 offset-3">
         <div class="card shadow">
             <div class="card-body">
                 <form class="validated-form" action="/campgrounds" method="POST" novalidate enctype="multipart/form-data">
                     <div class="valid-feedback">&#128077;</div>
                     <div class="mb-3">
-                        <label class="form-label" for="title">Title</label>
+                        <label class="form-label" for="title"><%=langData.title%></label>
                         <input class="form-control" type="text" id="title" name="campground[title]" required />
                         <div class="valid-feedback">&#128077;</div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="location">Location</label>
+                        <label class="form-label" for="location"><%=langData.location%></label>
                         <input class="form-control" type="text" id="location" name="campground[location]" required />
                         <div class="valid-feedback">&#128077;</div>
                     </div>
                     <div class="mb-3">
-                        <label for="price" class="form-label">Campground Price</label>
+                        <label for="price" class="form-label"><%=langData.price%></label>
                         <div class="input-group">
                             <span class="input-group-text" id="price-label">$</span>
                             <input
@@ -37,16 +37,16 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="description">Description</label>
+                        <label class="form-label" for="description"><%=langData.description%></label>
                         <textarea class="form-control" type="text" id="description" name="campground[description]" required></textarea>
                         <div class="valid-feedback">&#128077;</div>
                     </div>
                     <div class="mb-3">
-                        <label for="image" class="form-label">Add Images</label>
+                        <label for="image" class="form-label"><%=langData.addImages%></label>
                         <input class="form-control" type="file" id="image" name="image" multiple />
                     </div>
                     <div class="mb3 d-grid">
-                        <button class="btn btn-success">Add Campground</button>
+                        <button class="btn btn-success"><%=langData.newCamp%></button>
                     </div>
                 </form>
             </div>

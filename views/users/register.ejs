@@ -1,6 +1,6 @@
 <%layout('layouts/boilerplate')%>
 <script>
-    document.title = "YelpCamp - Register";
+    document.title = "YelpCamp - <%=langData.register%>";
 </script>
 <div class="container d-flex justifiy-content-center align-items-center mt-5">
     <div class="col-6 offset-3 col-xl-4 offset-4">
@@ -11,26 +11,26 @@
                 class="card-img-top"
             />
             <div class="card-body">
-                <h4 class="card-title">Register</h4>
+                <h4 class="card-title"><%=langData.register%></h4>
 
                 <form action="/register" method="POST" class="validated-form" novalidate>
                     <div class="mb-3">
-                        <label class="form-label" for="username">Username</label>
+                        <label class="form-label" for="username"><%=langData.username%></label>
                         <input class="form-control" type="text" id="username" name="username" required autofocus />
                         <div class="valid-feedback">&#128077;</div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="email">Email</label>
+                        <label class="form-label" for="email"><%=langData.email%></label>
                         <input class="form-control" type="email" id="email" name="email" required />
                         <div class="valid-feedback">&#128077;</div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="password">Password</label>
+                        <label class="form-label" for="password"><%=langData.password%></label>
                         <input class="form-control" type="password" id="password" name="password" required />
                         <div class="valid-feedback">&#128077;</div>
                     </div>
                     <div class="mb-3 d-grid">
-                        <button class="btn btn-success">Register</button>
+                        <button class="btn btn-success"><%=langData.register%></button>
                     </div>
                 </form>
             </div>

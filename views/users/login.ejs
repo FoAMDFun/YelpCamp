@@ -1,6 +1,6 @@
 <%layout('layouts/boilerplate')%>
 <script>
-    document.title = "YelpCamp - Login";
+    document.title = "YelpCamp - <%=langData.login%>";
 </script>
 <div class="container d-flex justifiy-content-center align-items-center mt-5">
     <div class="col-6 offset-3 col-xl-4 offset-4">
@@ -8,21 +8,21 @@
              <img src="https://images.unsplash.com/photo-1571863533956-01c88e79957e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80"
                     alt="" class="card-img-top" />
             <div class="card-body">
-                <h4 class="card-title">Login</h4>
+                <h4 class="card-title"><%=langData.login%></h4>
                     
                     <form action="/login" method="POST" class="validated-form" novalidate>
                         <div class="mb-3">
-                            <label class="form-label" for="username">Username</label>
+                            <label class="form-label" for="username"><%=langData.username%></label>
                             <input class="form-control" type="text" id="username" name="username" required autofocus />
                             <div class="valid-feedback">&#128077;</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="password">Password</label>
+                            <label class="form-label" for="password"><%=langData.password%></label>
                             <input class="form-control" type="password" id="password" name="password" required />
                             <div class="valid-feedback">&#128077;</div>
                         </div>
                         <div class="mb-3 d-grid">
-                            <button class="btn btn-success">Login</button>
+                            <button class="btn btn-success"><%=langData.login%></button>
                         </div>
                     </form>
                 </div>

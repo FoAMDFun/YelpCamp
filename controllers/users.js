@@ -1,7 +1,8 @@
 const User = require("../models/user");
 
 module.exports.renderRegister = (req, res) => {
-    res.render("users/register");
+    const { language } = req.session;
+    res.render("users/register", { language, langData: req.session.langData });
 };
 
 module.exports.register = async (req, res) => {
@@ -9,7 +10,7 @@ module.exports.register = async (req, res) => {
         const { email, username, password } = req.body;
         const user = new User({ email, username });
         const registeredUser = await User.register(user, password);
-        req.flash("success", `Hello, ${username}! Welcome to Yelp Camp!`);
+        req.flash("success", `Hello, ${username}! ${req.session.langData.welcome}`);
         req.login(registeredUser, (err) => {
             if (err) return next(err);
             res.redirect("/campgrounds");
@@ -21,11 +22,12 @@ module.exports.register = async (req, res) => {
 };
 
 module.exports.renderLogin = (req, res) => {
-    res.render("users/login");
+    const { language, langData } = req.session;
+    res.render("users/login", { language, langData });
 };
 
 module.exports.login = (req, res) => {
-    req.flash("success", `Welcome back, ${req.user.username}`);
+    req.flash("success", `${req.session.langData.welcomeBack}, ${req.user.username}`);
     const redirectUrl = req.session.returnTo || "/campgrounds";
     delete req.session.returnTo;
     res.redirect(redirectUrl);
@@ -33,6 +35,6 @@ module.exports.login = (req, res) => {
 
 module.exports.logout = (req, res) => {
     req.logout();
-    req.flash("success", "Successfully logged out!");
+    req.flash("success", req.session.langData.logoutSuccess);
     res.redirect("/campgrounds");
 };

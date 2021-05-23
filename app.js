@@ -19,6 +19,8 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
+const langData = require("./public/data/language.json");
+const { getLanguage, isLoggedIn, isAuthor, validateCampground } = require("./middleware");
 
 const userRoutes = require("./routes/users");
 const campgroundRoutes = require("./routes/campgrounds");
@@ -58,21 +60,21 @@ mongoStore.on("error", (error) => {
     console.log("Session store error", error);
 });
 
-const sessionConfig = {
-    secret,
-    name: "YelpCamp",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: true,
-        // secure: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-    },
-    store: mongoStore,
-};
-
-app.use(session(sessionConfig));
+app.use(
+    session({
+        secret,
+        name: "YelpCamp",
+        resave: false,
+        saveUninitialized: true,
+        cookie: {
+            httpOnly: true,
+            // secure: true,
+            expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+        },
+        store: mongoStore,
+    })
+);
 app.use(flash());
 app.use(helmet());
 
@@ -129,18 +131,20 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
 
 // routing
-app.get("/", (req, res) => {
-    // It gets the root query
-    res.render("home");
+app.get("/", getLanguage, (req, res) => {
+    const { language } = req.session;
+    req.session.language = "hu";
+    req.session.langData = langData.languages.hu;
+    res.render("home", { language, langData: req.session.langData });
 });
 
 app.all("*", (req, res, next) => {
-    next(new ExpressError("Page not found", 404));
+    next(new ExpressError(req.session.langData._404, 404));
 });
 
 app.use((err, req, res, next) => {
-    const { statusCode = 500, message = "Something went wrong" } = err;
-    if (!err.message) err.message = "Something went wrong";
+    const { statusCode = 500, message = req.session.langData.wrong } = err;
+    if (!err.message) err.message = req.session.langData.wrong;
     res.status(statusCode).render("error", { err });
 });
 
